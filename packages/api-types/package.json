@@ -3,14 +3,17 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "main": "./dist-cjs/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist-cjs/index.js"
     }
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.json && tsc --project tsconfig.cjs.json && node -e \"require('node:fs').mkdirSync('dist-cjs',{recursive:true}); require('node:fs').writeFileSync('dist-cjs/package.json', JSON.stringify({type:'commonjs'}));\"",
     "check-types": "tsc --noEmit",
     "dev": "tsc --watch --project tsconfig.json"
   },

@@ -11,7 +11,11 @@ async function bootstrap() {
   const logger = new Logger(AppModule.name);
 
   app.useGlobalPipes(
-    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
   );
 
   app.enableCors(getCorsConfig(config));
